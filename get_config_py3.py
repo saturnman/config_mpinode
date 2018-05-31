@@ -24,16 +24,20 @@ if __name__ == '__main__':
         print('find nodes:',hostAndPorts)
         f = open("ssh_config",'w')
         hostFile = open("hostfile","w")
+        sysHostFilePart = open("sysHostFilePart", "w")
+        sysHostFilePart.write("\n")
         f.write("StrictHostKeyChecking no\n")
         index = 1
         for node in hostAndPorts:
-            nodeName = "node"+str(index)
-            f.write("HOST "+nodeName+"\n")
-            f.write("\t HostName "+node[0]+"\n")
-            f.write("\t Port "+str(node[1])+"\n")
+            nodeName = "node" + str(index)
+            f.write("HOST " + nodeName + "\n")
+            f.write("\t HostName " + node[0] + "\n")
+            f.write("\t Port " + str(node[1]) + "\n")
             f.write("\t User tutorial\n")
-            hostFile.write(nodeName+" slots=1\n")
-            index+=1
+            sysHostFilePart.write(node[0] + "\t " + nodeName + "\n")
+            hostFile.write(nodeName + " slots=1\n")
+            index += 1
         f.close()
         hostFile.close()
+        sysHostFilePart.close()
 
